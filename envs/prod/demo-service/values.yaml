@@ -1,0 +1,9 @@
+# demo-service in PROD. Stand-in until the real auth-service image exists.
+env: prod
+replicas: 2
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: "6.17.0"   # <- the CI pipeline bumps this line to deploy a new version
+env_vars:
+  PODINFO_UI_MESSAGE: "FitApp - PROD environment"
+  PODINFO_UI_COLOR: "#1565c0"

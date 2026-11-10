@@ -1,0 +1,3 @@
+# Cluster-wide values. nip.io = free wildcard DNS: anything.<IP>.nip.io resolves to <IP>.
+# Update this line if the master public IP changes (terraform output master_public_ip).
+domain: 20.240.199.229.nip.io

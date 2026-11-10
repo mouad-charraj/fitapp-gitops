@@ -1,0 +1,5 @@
+apiVersion: v2
+name: microservice
+description: Generic chart used by EVERY FitApp microservice. Each service/env only provides a values.yaml.
+type: application
+version: 0.1.0

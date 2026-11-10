@@ -1,0 +1,9 @@
+# demo-service in DEV. Stand-in until the real auth-service image exists.
+env: dev
+replicas: 1
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: "6.17.0"   # <- the CI pipeline bumps this line to deploy a new version
+env_vars:
+  PODINFO_UI_MESSAGE: "FitApp - DEV environment"
+  PODINFO_UI_COLOR: "#2e7d32"

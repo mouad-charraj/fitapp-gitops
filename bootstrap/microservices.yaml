@@ -1,0 +1,42 @@
+# One Argo CD Application per <env>/<service> folder, generated automatically.
+#   envs/dev/demo-service/values.yaml   ->  Application "demo-service-dev"  in namespace dev
+#   envs/prod/auth-service/values.yaml  ->  Application "auth-service-prod" in namespace prod
+# Adding a microservice or an environment = adding a folder. No Argo CD config to touch.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: microservices
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/CHANGE_ME/fitapp-gitops.git
+        revision: main
+        files:
+          - path: "envs/*/*/values.yaml"
+  template:
+    metadata:
+      name: '{{ index .path.segments 2 }}-{{ index .path.segments 1 }}'
+      labels:
+        env: '{{ index .path.segments 1 }}'
+        service: '{{ index .path.segments 2 }}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/CHANGE_ME/fitapp-gitops.git
+        targetRevision: main
+        path: charts/microservice
+        helm:
+          releaseName: '{{ index .path.segments 2 }}'
+          valueFiles:
+            - ../../envs/cluster.yaml              # cluster-wide values (domain)
+            - '../../{{ .path.path }}/values.yaml' # this service in this env
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ index .path.segments 1 }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

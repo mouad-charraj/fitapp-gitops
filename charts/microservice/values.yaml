@@ -1,0 +1,28 @@
+# Defaults. Overridden by envs/cluster.yaml then envs/<env>/<service>/values.yaml
+
+domain: ""           # from envs/cluster.yaml, e.g. 20.240.199.229.nip.io
+env: dev             # dev | test | prod
+
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: "6.17.0"      # CI changes ONLY this line when deploying a new version
+  pullPolicy: IfNotPresent
+
+replicas: 1
+containerPort: 9898
+
+probes:
+  liveness: /healthz
+  readiness: /readyz
+
+env_vars: {}         # extra environment variables (name: value)
+
+resources:
+  requests: { cpu: 20m, memory: 32Mi }
+  limits: { memory: 128Mi }
+
+ingress:
+  enabled: true      # host = <service>-<env>.<domain>  (prod: <service>.<domain>)
+
+# Writable scratch dirs (root filesystem is read-only)
+writableDirs: ["/tmp", "/data"]
