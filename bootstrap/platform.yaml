@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/fitapp-gitops.git
+    repoURL: https://github.com/mouad-charraj/fitapp-gitops.git
     targetRevision: main
     path: platform
     directory:

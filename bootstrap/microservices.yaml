@@ -12,7 +12,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
-        repoURL: https://github.com/CHANGE_ME/fitapp-gitops.git
+        repoURL: https://github.com/mouad-charraj/fitapp-gitops.git
         revision: main
         files:
           - path: "envs/*/*/values.yaml"
@@ -25,7 +25,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/CHANGE_ME/fitapp-gitops.git
+        repoURL: https://github.com/mouad-charraj/fitapp-gitops.git
         targetRevision: main
         path: charts/microservice
         helm:
