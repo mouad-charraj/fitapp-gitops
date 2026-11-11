@@ -29,9 +29,9 @@ Create `envs/dev/<name>/values.yaml` (and test/prod). The ApplicationSet creates
 ## URLs (nip.io wildcard DNS, master public IP)
 | env | URL |
 |---|---|
-| dev | http://demo-service-dev.&lt;IP&gt;.nip.io |
-| test | http://demo-service-test.&lt;IP&gt;.nip.io |
-| prod | http://demo-service.&lt;IP&gt;.nip.io |
+| dev | http://kochini-frontend-dev.&lt;IP&gt;.nip.io |
+| test | http://kochini-frontend-test.&lt;IP&gt;.nip.io |
+| prod | http://kochini-frontend.&lt;IP&gt;.nip.io |
 
 ## Security baseline
 - Pod Security Standard **restricted** on every environment namespace
