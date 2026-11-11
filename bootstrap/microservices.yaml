@@ -19,6 +19,10 @@ spec:
   template:
     metadata:
       name: '{{ index .path.segments 2 }}-{{ index .path.segments 1 }}'
+      # Deleting a service folder from git deletes its Deployment/Service/Ingress too
+      # (without this finalizer the resources would be left running, orphaned).
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
       labels:
         env: '{{ index .path.segments 1 }}'
         service: '{{ index .path.segments 2 }}'

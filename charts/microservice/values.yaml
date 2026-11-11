@@ -11,6 +11,12 @@ image:
 replicas: 1
 containerPort: 9898
 
+# Non-root user the container runs as. Use the UID the image was built for
+# (e.g. nginx-unprivileged = 101). Root (0) is refused by Pod Security "restricted".
+securityContext:
+  runAsUser: 10001
+  runAsGroup: 10001
+
 probes:
   liveness: /healthz
   readiness: /readyz

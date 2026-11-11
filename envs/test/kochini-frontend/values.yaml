@@ -1,0 +1,28 @@
+# KOCHINI web client (nginx-unprivileged serving the built SPA) in TEST.
+env: test
+replicas: 1
+
+image:
+  repository: docker.io/medaxo/kochini-frontend
+  tag: "local"        # <- the CI pipeline will replace this with an immutable tag (git SHA)
+  pullPolicy: Always  # "local" is a mutable tag: always re-check Docker Hub for a newer push
+
+containerPort: 8080   # the image listens on 8080 (non-root nginx)
+probes:
+  liveness: /healthz
+  readiness: /healthz
+
+securityContext:      # UID/GID the image was built for (nginx-unprivileged)
+  runAsUser: 101
+  runAsGroup: 101
+
+# Root filesystem stays read-only: nginx and the startup script write only to /tmp
+writableDirs: ["/tmp"]
+
+env_vars:
+  API_URL: "/api"                  # backend not deployed yet; becomes the gateway URL later
+  APP_VERSION: "local-test"
+
+resources:
+  requests: { cpu: 10m, memory: 16Mi }
+  limits: { memory: 64Mi }

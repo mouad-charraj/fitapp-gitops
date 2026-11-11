@@ -21,9 +21,9 @@ spec:
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
-        runAsUser: 10001
-        runAsGroup: 10001
-        fsGroup: 10001
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        fsGroup: {{ .Values.securityContext.runAsGroup }}
         seccompProfile: { type: RuntimeDefault }
       # spread replicas over different nodes: losing one VM does not kill the service
       topologySpreadConstraints:
